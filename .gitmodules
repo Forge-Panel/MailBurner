@@ -1,0 +1,6 @@
+[submodule "Manager"]
+	path = Manager
+	url = git@github.com:Forge-Panel/MailBurner-Manager.git
+[submodule "Worker"]
+	path = Worker
+	url = git@github.com:Forge-Panel/MailBurner-Worker.git
