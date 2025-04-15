@@ -1,0 +1,8 @@
+
+services:
+  database:
+    extends:
+      file: base.yml
+      service: database
+    ports:
+      - 5432:5432

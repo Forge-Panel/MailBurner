@@ -1,0 +1,54 @@
+
+services:
+  database:
+    image: postgres
+    container_name: Forge_MailBurner_Database
+    ports:
+      - 8120:5432
+    environment:
+      - POSTGRES_USER=db
+      - POSTGRES_PASSWORD=db
+      - POSTGRES_DB=db
+
+  redis:
+    image: redis/redis-stack
+    container_name: Forge_MailBurner_Redis
+    ports:
+      - 8121:6379
+
+  ollama:
+    image: ollama/ollama
+    container_name: Forge_MailBurner_Ollama
+    ports:
+      - 11434:11434
+    volumes:
+      - ollama-data:/root/.ollama
+
+  manager:
+    build: ../Manager
+    container_name: Forge_MailBurner_Manager
+    ports:
+      - 8122:80
+    environment:
+      - DATABASE_HOSTNAME=database
+      - DATABASE_PORT=5432
+      - DATABASE_DATABASE=db
+      - DATABASE_USERNAME=db
+      - DATABASE_PASSWORD=db
+
+  worker:
+    build: ../Manager
+    container_name: Forge_MailBurner_Worker
+    environment:
+      - DATABASE_HOSTNAME=database
+      - DATABASE_PORT=5432
+      - DATABASE_DATABASE=db
+      - DATABASE_USERNAME=db
+      - DATABASE_PASSWORD=db
+      - BROKER_HOSTNAME=redis
+      - BROKER_PORT=6379
+      - BROKER_DATABASE=
+      - BROKER_USERNAME=
+
+volumes:
+  ollama-data:
