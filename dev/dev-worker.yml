@@ -1,22 +1,23 @@
 
 services:
-  database:
-    extends:
-      file: base.yml
-      service: database
-    ports:
-      - 5432:5432
-
-  redis:
-    extends:
-      file: base.yml
-      service: redis
-    ports:
-      - 6379:6379
+#   database:
+#     extends:
+#       file: base.yml
+#       service: database
+#     ports:
+#       - 5432:5432
+#
+#   redis:
+#     extends:
+#       file: base.yml
+#       service: redis
+#     ports:
+#       - 6379:6379
 
   ollama:
     extends:
       file: base.yml
       service: ollama
-    ports:
-      - 11434:11434
+
+volumes:
+  ollama-data:
